@@ -17,8 +17,40 @@ namespace Clients.Controllers
             ViewBag.Books = books;
             return View();
         }
+
+        [HttpGet]
+        public JsonResult getCities()
+        {
+
+            var jsondata = context.Cities.ToList();
+            List<Cities> list = new List<Cities>();
+            foreach (Models.Cities obj in jsondata)
+            {
+                list.Add(new Cities(obj.CitiesID, obj.CityName));
+            }
+            DropDown dd = new DropDown(list);
+                
+            return Json(dd, JsonRequestBehavior.AllowGet);
+        }
+        class Cities{
+
+            public int value { get; set; }
+            public string name { get; set; }
+
+            public Cities(int Value, string Name)
+            {
+                this.value = Value;
+                this.name = Name;
+            }
+        }
+        class DropDown
+        {
+            public bool success=true;
+            public List<Cities> results { get; set; }
+            public DropDown(List<Cities> list)
+            {
+                this.results = list;
+            }
+        }
     }
-
-
-
 }

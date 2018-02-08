@@ -91,15 +91,20 @@
     <div class="ui form">
         <div class="required field">
             <label>Место рождения</label>
-            <input type="text" placeholder="Место рождения">
-        </div>
+            <div class="ui selection dropdown ">
+                <div class="text"></div>
+                <i class="dropdown icon"></i>
+            </div>
+            </div>
     </div>
 
     <div class="ui form">
         <div class="required field">
             <label>Город факт. проживания</label>
-            <input type="text" placeholder="Город факт. проживания">
-        </div>
+            <div class="ui selection dropdown ">
+                <div class="text"></div>
+                <i class="dropdown icon"></i>
+            </div>
     </div>
 
     <div class="ui form">
@@ -147,8 +152,10 @@
     <div class="ui form">
         <div class="required field">
             <label>Город прописки</label>
-            <input type="text" placeholder="Город прописки">
-        </div>
+            <div class="ui selection dropdown ">
+                <div class="text"></div>
+                <i class="dropdown icon"></i>
+            </div>
     </div>
 
     <div class="ui form">
@@ -206,25 +213,15 @@
 
 </div>
 
-<div class="ui dropdown ">
-    <div class="text"></div>
-    <i class="dropdown icon"></i>
+
 </div>
 
     <script>
         $('.ui.dropdown').dropdown({
-            values: [
-                {
-                    name: 'adfafa',
-                    value: 'male'
-                },
-                {
-                    name: 'Female',
-                    value: 'female',
-                    selected: true
-                }
-            ]
-            
+            apiSettings: {
+                url: 'Home/getCities'
+            }
+        
         });
 
 
