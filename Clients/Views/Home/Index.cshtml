@@ -105,6 +105,7 @@
                 <div class="text"></div>
                 <i class="dropdown icon"></i>
             </div>
+        </div>
     </div>
 
     <div class="ui form">
@@ -168,7 +169,10 @@
     <div class="ui form">
         <div class="required field">
             <label>Семейное положение</label>
-            <input type="text" placeholder="Семейное положение">
+            <div class="ui selection dropdown position">
+                <div class="text"></div>
+                <i class="dropdown icon"></i>
+            </div>
         </div>
     </div>
 
@@ -182,7 +186,10 @@
     <div class="ui form">
         <div class="required field">
             <label>Инвалидность</label>
-            <input type="text" placeholder="Инвалидность">
+            <div class="ui selection dropdown disabilities">
+                <div class="text"></div>
+                <i class="dropdown icon"></i>
+            </div>
         </div>
     </div>
 
@@ -224,6 +231,18 @@
         
         });
 
+        $('.ui.dropdown.position').dropdown({
+            apiSettings: {
+                url: 'Home/getFamilyPosition'
+            }
+
+        });
+        $('.ui.dropdown.disabilities').dropdown({
+            apiSettings: {
+                url: 'Home/getDisabilities'
+            }
+
+        });
 
         $('.ui.checkbox').checkbox();
     </script>

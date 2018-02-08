@@ -23,21 +23,52 @@ namespace Clients.Controllers
         {
 
             var jsondata = context.Cities.ToList();
-            List<Cities> list = new List<Cities>();
+            List<DropdownValues> list = new List<DropdownValues>();
             foreach (Models.Cities obj in jsondata)
             {
-                list.Add(new Cities(obj.CitiesID, obj.CityName));
+                list.Add(new DropdownValues(obj.CitiesID, obj.CityName));
             }
             DropDown dd = new DropDown(list);
                 
             return Json(dd, JsonRequestBehavior.AllowGet);
         }
-        class Cities{
+
+        [HttpGet]
+        public JsonResult getFamilyPosition()
+        {
+
+            var jsondata = context.FamilyPosition.ToList();
+            List<DropdownValues> list = new List<DropdownValues>();
+            foreach (Models.FamilyPosition obj in jsondata)
+            {
+                list.Add(new DropdownValues(obj.FamilyPositionID, obj.Position));
+            }
+            DropDown dd = new DropDown(list);
+
+            return Json(dd, JsonRequestBehavior.AllowGet);
+        }
+
+
+        [HttpGet]
+        public JsonResult getDisabilities()
+        {
+            var jsondata = context.Disability.ToList();
+            List<DropdownValues> list = new List<DropdownValues>();
+            foreach (Models.Disability obj in jsondata)
+            {
+                list.Add(new DropdownValues(obj.DisabilityID, obj.DisabilityName));
+            }
+            DropDown dd = new DropDown(list);
+
+            return Json(dd, JsonRequestBehavior.AllowGet);
+        }
+
+        class DropdownValues{
 
             public int value { get; set; }
             public string name { get; set; }
 
-            public Cities(int Value, string Name)
+            public DropdownValues(int Value, string Name)
             {
                 this.value = Value;
                 this.name = Name;
@@ -46,8 +77,8 @@ namespace Clients.Controllers
         class DropDown
         {
             public bool success=true;
-            public List<Cities> results { get; set; }
-            public DropDown(List<Cities> list)
+            public List<DropdownValues> results { get; set; }
+            public DropDown(List<DropdownValues> list)
             {
                 this.results = list;
             }
