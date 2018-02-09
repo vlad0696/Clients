@@ -8,34 +8,27 @@
 @Styles.Render("~/Content/dropdown.min.css")
 <div class="mainForm"style="margin-top:6%">
 
-<div class="ui form">
-    <div class="required field">
-        <label>Фамилия</label>
-        <input type="text" placeholder="Фамилия">
-    </div>
-</div>
+    <form class="ui form">
+        <div class="required field">
+            <label>Фамилия</label>
+            <input type="text" placeholder="Фамилия">
+        </div>
 
-    <div class="ui form">
         <div class="required field">
             <label>Полное имя</label>
-            <input type="text" placeholder="Полное имя">
+            <input type="text" placeholder="Полное имя" runat=server id=txtName>
         </div>
-    </div>
 
-    <div class="ui form">
         <div class="required field">
             <label>Отчество</label>
             <input type="text" placeholder="Отчество">
         </div>
-    </div>
-    <div class="ui form">
+
         <div class="required field">
             <label>Дата Рождения</label>
             <input type="text" placeholder="Дата Рождения">
         </div>
-    </div>
-    
-    <div class="ui form">
+
         <div class="required grouped fields">
             <label>Пол</label>
             <div class="field">
@@ -51,54 +44,40 @@
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="ui form">
         <div class="required field">
             <label>Серия паспорта</label>
             <input type="text" placeholder="Серия паспорта">
         </div>
-    </div>
 
-    <div class="ui form">
         <div class="required field">
             <label>Идент. номер</label>
             <input type="text" placeholder="Идент. номер">
         </div>
-    </div>
 
-    <div class="ui form">
         <div class="required field">
             <label>№ паспорта</label>
             <input type="text" placeholder="№ паспорта">
         </div>
-    </div>
-    
-    <div class="ui form">
+
         <div class="required field">
             <label>Кем выдан</label>
             <input type="text" placeholder="Кем выдан">
         </div>
-    </div>
-    
-    <div class="ui form">
+
         <div class="required field">
             <label>Дата выдачи</label>
             <input type="text" placeholder="Дата выдачи">
         </div>
-    </div>
-    
-    <div class="ui form">
+
         <div class="required field">
             <label>Место рождения</label>
             <div class="ui selection dropdown ">
                 <div class="text"></div>
                 <i class="dropdown icon"></i>
             </div>
-            </div>
-    </div>
+        </div>
 
-    <div class="ui form">
         <div class="required field">
             <label>Город факт. проживания</label>
             <div class="ui selection dropdown ">
@@ -106,122 +85,93 @@
                 <i class="dropdown icon"></i>
             </div>
         </div>
-    </div>
 
-    <div class="ui form">
         <div class="required field">
             <label>Адрес факт.проживания</label>
             <input type="text" placeholder="Адрес факт.проживания">
         </div>
-    </div>
 
-    <div class="ui form">
         <div class="field">
             <label>Телефон домашний</label>
             <input type="text" placeholder="Телефон домашний">
         </div>
-    </div>
 
-    <div class="ui form">
         <div class="field">
             <label>Телефон мобильный</label>
             <input type="text" placeholder="Телефон мобильный">
         </div>
-    </div>
 
-    <div class="ui form">
         <div class="field">
             <label>E-mail</label>
             <input type="text" placeholder="E-mail">
         </div>
-    </div>
 
-    <div class="ui form">
         <div class="field">
             <label>Место работы</label>
             <input type="text" placeholder="Место работы">
         </div>
-    </div>
 
-    <div class="ui form">
         <div class="field">
             <label>Должность</label>
             <input type="text" placeholder="Должность">
         </div>
-    </div>
 
-    <div class="ui form">
         <div class="required field">
             <label>Город прописки</label>
             <div class="ui selection dropdown ">
                 <div class="text"></div>
                 <i class="dropdown icon"></i>
             </div>
-    </div>
 
-    <div class="ui form">
-        <div class="required field">
-            <label>Адрес прописки</label>
-            <input type="text" placeholder="Адрес прописки">
-        </div>
-    </div>
+            <div class="required field">
+                <label>Адрес прописки</label>
+                <input type="text" placeholder="Адрес прописки">
+            </div>
 
-    <div class="ui form">
-        <div class="required field">
-            <label>Семейное положение</label>
-            <div class="ui selection dropdown position">
-                <div class="text"></div>
-                <i class="dropdown icon"></i>
+            <div class="required field">
+                <label>Семейное положение</label>
+                <div class="ui selection dropdown position">
+                    <div class="text"></div>
+                    <i class="dropdown icon"></i>
+                </div>
+            </div>
+
+            <div class="required field">
+                <label>Гражданство</label>
+                <input type="text" placeholder="Гражданство">
+            </div>
+
+            <div class="required field">
+                <label>Инвалидность</label>
+                <div class="ui selection dropdown disabilities">
+                    <div class="text"></div>
+                    <i class="dropdown icon"></i>
+                </div>
+            </div>
+
+            <div class="required field">
+                <div class="ui checkbox">
+                    <input type="checkbox">
+                    <label>Пенсионер</label>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Ежемесячный доход</label>
+                <input type="text" placeholder="Ежемесячный доход">
+            </div>
+
+            <div class="required field">
+                <div class="ui checkbox">
+                    <input type="checkbox">
+                    <label>Военнообязанный</label>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="ui form">
-        <div class="required field">
-            <label>Гражданство</label>
-            <input type="text" placeholder="Гражданство">
-        </div>
-    </div>
-
-    <div class="ui form">
-        <div class="required field">
-            <label>Инвалидность</label>
-            <div class="ui selection dropdown disabilities">
-                <div class="text"></div>
-                <i class="dropdown icon"></i>
-            </div>
-        </div>
-    </div>
-
-    <div class="ui form">
-        <div class="required field">
-            <div class="ui checkbox">
-                <input type="checkbox">
-                <label>Пенсионер</label>
-            </div>
-        </div>
-    </div>
-
-    <div class="ui form">
-        <div class="field">
-            <label>Ежемесячный доход</label>
-            <input type="text" placeholder="Ежемесячный доход">
-        </div>
-    </div>
-    
-    <div class="ui form">
-        <div class="required field">
-            <div class="ui checkbox">
-                <input type="checkbox">
-                <label>Военнообязанный</label>
-            </div>
-        </div>
-    </div>
+    </form>
 
 </div>
 
-
-</div>
 
     <script>
         $('.ui.dropdown').dropdown({
@@ -243,6 +193,20 @@
             }
 
         });
-
+        $('.field.example form')
+            .form({
+                on: 'blur',
+                field: {
+                    empty: {
+                        identifier: 'empty',
+                        rules: [
+                            {
+                                type: 'empty',
+                                prompt: 'Please enter a value'
+                            }
+                        ]
+                    }
+            })
+            ;
         $('.ui.checkbox').checkbox();
     </script>
