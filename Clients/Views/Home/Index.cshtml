@@ -11,22 +11,22 @@
     <form class="ui form">
         <div class="required field">
             <label>Фамилия</label>
-            <input type="text" placeholder="Фамилия">
+            <input name="SurName"  type="text" placeholder="Фамилия">
         </div>
 
         <div class="required field">
             <label>Полное имя</label>
-            <input type="text" placeholder="Полное имя" runat=server id=txtName>
+            <input type="text" placeholder="Полное имя" name="Name">
         </div>
 
         <div class="required field">
             <label>Отчество</label>
-            <input type="text" placeholder="Отчество">
+            <input type="text" placeholder="Отчество" name="SecondName">
         </div>
 
         <div class="required field">
             <label>Дата Рождения</label>
-            <input type="text" placeholder="Дата Рождения">
+            <input type="text" placeholder="Дата Рождения" name="DOB">
         </div>
 
         <div class="required grouped fields">
@@ -47,22 +47,22 @@
 
         <div class="required field">
             <label>Серия паспорта</label>
-            <input type="text" placeholder="Серия паспорта">
-        </div>
-
-        <div class="required field">
-            <label>Идент. номер</label>
-            <input type="text" placeholder="Идент. номер">
+            <input type="text" placeholder="Серия паспорта" name="Series">
         </div>
 
         <div class="required field">
             <label>№ паспорта</label>
-            <input type="text" placeholder="№ паспорта">
+            <input type="text" placeholder="№ паспорта" name="Number">
+        </div>
+
+        <div class="required field">
+            <label>Идент. номер</label>
+            <input type="text" placeholder="Идент. номер" name="PassportID">
         </div>
 
         <div class="required field">
             <label>Кем выдан</label>
-            <input type="text" placeholder="Кем выдан">
+            <input type="text" placeholder="Кем выдан" name="IssueOrgan">
         </div>
 
         <div class="required field">
@@ -72,8 +72,8 @@
 
         <div class="required field">
             <label>Место рождения</label>
-            <div class="ui selection dropdown ">
-                <div class="text"></div>
+            <div class="ui selection dropdown" name="dropdown">
+                <div class="text" ></div>
                 <i class="dropdown icon"></i>
             </div>
         </div>
@@ -88,32 +88,32 @@
 
         <div class="required field">
             <label>Адрес факт.проживания</label>
-            <input type="text" placeholder="Адрес факт.проживания">
+            <input type="text" placeholder="Адрес факт.проживания" name="Recidence">
         </div>
 
         <div class="field">
             <label>Телефон домашний</label>
-            <input type="text" placeholder="Телефон домашний">
+            <input type="text" placeholder="Телефон домашний" name="HomePhone">
         </div>
 
         <div class="field">
             <label>Телефон мобильный</label>
-            <input type="text" placeholder="Телефон мобильный">
+            <input type="text" placeholder="Телефон мобильный" name="PhoneNumber">
         </div>
 
         <div class="field">
             <label>E-mail</label>
-            <input type="text" placeholder="E-mail">
+            <input type="text" placeholder="E-mail" name="email">
         </div>
 
         <div class="field">
             <label>Место работы</label>
-            <input type="text" placeholder="Место работы">
+            <input type="text" placeholder="Место работы" name="job">
         </div>
 
         <div class="field">
             <label>Должность</label>
-            <input type="text" placeholder="Должность">
+            <input type="text" placeholder="Должность" name="position">
         </div>
 
         <div class="required field">
@@ -125,7 +125,7 @@
 
             <div class="required field">
                 <label>Адрес прописки</label>
-                <input type="text" placeholder="Адрес прописки">
+                <input type="text" placeholder="Адрес прописки" name="ActualAddres">
             </div>
 
             <div class="required field">
@@ -158,7 +158,7 @@
 
             <div class="field">
                 <label>Ежемесячный доход</label>
-                <input type="text" placeholder="Ежемесячный доход">
+                <input type="text" placeholder="Ежемесячный доход" name="income" >
             </div>
 
             <div class="required field">
@@ -168,45 +168,149 @@
                 </div>
             </div>
         </div>
+        <div class="ui submit button">Submit</div>
+        <div class="ui error message"></div>
     </form>
 
 </div>
 
-
     <script>
         $('.ui.dropdown').dropdown({
             apiSettings: {
-                url: 'Home/getCities'
+                url: '/Home/getCities'
             }
-        
+
         });
 
         $('.ui.dropdown.position').dropdown({
             apiSettings: {
-                url: 'Home/getFamilyPosition'
+                url: '/Home/getFamilyPosition'
             }
 
         });
         $('.ui.dropdown.disabilities').dropdown({
             apiSettings: {
-                url: 'Home/getDisabilities'
+                url: '/Home/getDisabilities'
             }
 
         });
-        $('.field.example form')
+
+        $('.ui.form')
             .form({
                 on: 'blur',
-                field: {
-                    empty: {
-                        identifier: 'empty',
+               // inline: true,
+                fields: {
+                    SurName: {
+                        identifier: 'SurName',
                         rules: [
                             {
-                                type: 'empty',
-                                prompt: 'Please enter a value'
+                                type: 'regExp[/^[А-Я][а-я]{3,16}$/]',
+                                prompt: 'Введите Фамилию (только кириллица, от 4 до 16 символов)',
                             }
                         ]
-                    }
-            })
-            ;
+                    },
+                        Name: {
+                        identifier: 'Name',
+                        rules: [
+                            {
+                                type: 'regExp[/^[А-Я][а-я]{3,16}$/]',
+                                prompt: 'Введите имя (только кириллица, от 4 до 16 символов)',
+                            }
+                        ]
+                    },
+                        SecondName: {
+                            identifier: 'SecondName',
+                            rules: [
+                                {
+                                    type: 'regExp[/^[А-Я][а-я]{3,16}$/]',
+                                    prompt: 'Введите Отчество (только кириллица, от 4 до 16 символов)'
+                                }
+                            ]
+                        },
+                        Series: {
+                            identifier: 'Series',
+                            rules: [
+                                {
+                                    type: 'regExp[/^[A-Z]{2}$/]',
+                                    prompt: 'Введите серию паспорта(2 символа латиницы)'
+                                }
+                            ]
+                        },
+                        Number: {
+                            identifier: 'Number',
+                            rules: [
+                                {
+                                    type: 'regExp[/^[0-9]{7}$/]',
+                                    prompt: 'Введите номер паспорта(7 цифр)'
+                                }
+                            ]
+                        }, 
+                        PassportID: {
+                            identifier: 'PassportID',
+                            rules: [
+                                {
+                                    type: 'regExp[/^[A-Z0-9]{14}$/]',
+                                    prompt: 'Введите идентификационный номер'
+                                }
+                            ]
+                         },
+                        IssueOrgan: {
+                            identifier: 'IssueOrgan',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'Введите номер орган номер'
+                                }
+                            ]
+                        },
+                        dropdown: {
+                            identifier: 'dropdown',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'Please select a dropdown value'
+                                }
+                            ]
+                        },
+                        Recidence: {
+                            identifier: 'Recidence',
+                            rules: [
+                                {
+                                    type: 'empty',
+                                    prompt: 'Введите адрес фактического проживания'
+                                }
+                            ]
+                        },
+                        PhoneNumber: {
+                            identifier: 'PhoneNumber',
+                            rules: [
+                                {
+                                    type: 'regExp[/^([+]?[0-9]{12})?$/]',
+                                    prompt: 'Введите мобильный телефон вида "+375447570139"'
+                                }
+                            ]
+                        },
+                        HomePhone: {
+                            identifier: 'HomePhone',
+                            rules: [
+                                {
+                                    type: 'regExp[/^([0-9]{5,12})?$/]',
+                                    prompt: 'Введите мобильный телефон вида "365484"'
+                                }
+                            ]
+                        },
+                        email: {
+                            identifier: 'email',
+                            rules: [
+                                {
+                                    type: 'email',
+                                    prompt: 'Введите корректный email'
+                                }
+                            ]
+                        },
+
+                }
+            });
+
         $('.ui.checkbox').checkbox();
     </script>
