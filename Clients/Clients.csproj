@@ -152,6 +152,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802071134368_InitialCreate.cs" />
+    <Compile Include="Migrations\201802071134368_InitialCreate.Designer.cs">
+      <DependentUpon>201802071134368_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802151407096_AddClientsMigration.cs" />
+    <Compile Include="Migrations\201802151407096_AddClientsMigration.Designer.cs">
+      <DependentUpon>201802151407096_AddClientsMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802151411593_AddClientMigration.cs" />
+    <Compile Include="Migrations\201802151411593_AddClientMigration.Designer.cs">
+      <DependentUpon>201802151411593_AddClientMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Contacts.cs" />
     <Compile Include="Models\Cities.cs" />
@@ -381,6 +394,17 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201802071134368_InitialCreate.resx">
+      <DependentUpon>201802071134368_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802151407096_AddClientsMigration.resx">
+      <DependentUpon>201802151407096_AddClientsMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802151411593_AddClientMigration.resx">
+      <DependentUpon>201802151411593_AddClientMigration.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

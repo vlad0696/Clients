@@ -16,5 +16,7 @@ namespace Clients.Models
         public DbSet<FamilyPosition> FamilyPosition{ get; set; }
         public DbSet<Nationality> Nationality { get; set; }
         public DbSet<Disability> Disability { get; set; }
+        public DbSet<Client> Clients { get; set; }
+       
     }
 }

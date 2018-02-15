@@ -51,3 +51,7 @@ C:\Users\Gramovich_V\source\repos\Clients\Clients\bin\EntityFramework.dll
 C:\Users\Gramovich_V\source\repos\Clients\Clients\bin\EntityFramework.SqlServer.dll
 C:\Users\Gramovich_V\source\repos\Clients\Clients\bin\EntityFramework.xml
 C:\Users\Gramovich_V\source\repos\Clients\Clients\bin\EntityFramework.SqlServer.xml
+C:\Users\Gramovich_V\source\repos\Clients\Clients\obj\Debug\Clients.Migrations.InitialCreate.resources
+C:\Users\Gramovich_V\source\repos\Clients\Clients\obj\Debug\Clients.csproj.GenerateResource.Cache
+C:\Users\Gramovich_V\source\repos\Clients\Clients\obj\Debug\Clients.Migrations.AddClientsMigration.resources
+C:\Users\Gramovich_V\source\repos\Clients\Clients\obj\Debug\Clients.Migrations.AddClientMigration.resources
