@@ -6,6 +6,10 @@ using System.Web.Mvc;
 using System.Configuration;
 using System.Data.SqlClient;
 using Clients.Models;
+using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+
 namespace Clients.Controllers
 {
     public class HomeController : Controller
@@ -16,6 +20,20 @@ namespace Clients.Controllers
             IEnumerable<Person> books = context.Persons;
             ViewBag.Books = books;
             return View();
+        }
+
+        [HttpPost]
+        public void saveClient(Client json)
+        {
+            try
+            {
+                Client clark = json;
+
+            }
+            catch
+            {
+                string a = "azaza";
+            }
         }
 
         [HttpGet]
@@ -57,6 +75,19 @@ namespace Clients.Controllers
             foreach (Models.Disability obj in jsondata)
             {
                 list.Add(new DropdownValues(obj.DisabilityID, obj.DisabilityName));
+            }
+            DropDown dd = new DropDown(list);
+
+            return Json(dd, JsonRequestBehavior.AllowGet);
+        }
+        [HttpGet]
+        public JsonResult getNationalitiy()
+        {
+            var jsondata = context.Nationality.ToList();
+            List<DropdownValues> list = new List<DropdownValues>();
+            foreach (Models.Nationality obj in jsondata)
+            {
+                list.Add(new DropdownValues(obj.NationalityID, obj.NationalityName));
             }
             DropDown dd = new DropDown(list);
 

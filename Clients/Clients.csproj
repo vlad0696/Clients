@@ -152,6 +152,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Client.cs" />
     <Compile Include="Models\Contacts.cs" />
     <Compile Include="Models\Cities.cs" />
     <Compile Include="Models\DbInitializer.cs" />
@@ -169,6 +170,8 @@
     <Content Include="Content\bootstrap-datetimepicker.min.js" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\calendar.min.css" />
+    <Content Include="Content\calendar.min.js" />
     <Content Include="Content\components\accordion.css" />
     <Content Include="Content\components\accordion.js" />
     <Content Include="Content\components\accordion.min.css" />
