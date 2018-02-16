@@ -55,3 +55,5 @@ C:\Users\Gramovich_V\source\repos\Clients\Clients\obj\Debug\Clients.Migrations.I
 C:\Users\Gramovich_V\source\repos\Clients\Clients\obj\Debug\Clients.csproj.GenerateResource.Cache
 C:\Users\Gramovich_V\source\repos\Clients\Clients\obj\Debug\Clients.Migrations.AddClientsMigration.resources
 C:\Users\Gramovich_V\source\repos\Clients\Clients\obj\Debug\Clients.Migrations.AddClientMigration.resources
+C:\Users\Gramovich_V\source\repos\Clients\Clients\obj\Debug\Clients.Migrations.AddClientRequiredMigration.resources
+C:\Users\Gramovich_V\source\repos\Clients\Clients\obj\Debug\Clients.Migrations.AddClientGenderMigration.resources

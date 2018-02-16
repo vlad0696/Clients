@@ -7,9 +7,6 @@ using System.Configuration;
 using System.Data.SqlClient;
 using Clients.Models;
 using System.IO;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-
 namespace Clients.Controllers
 {
     public class HomeController : Controller
@@ -23,16 +20,25 @@ namespace Clients.Controllers
         }
 
         [HttpPost]
-        public void saveClient(Client json)
+        public ActionResult saveClient(Client client)
         {
             try
             {
-                Client clark = json;
+                //context.Clients.Add(client);
+                // context.SaveChanges();
+                Client thisClient = context.Clients.Where(c => c.Series == client.Series).Where(c => c.Number == client.Number).FirstOrDefault();
+                if (thisClient== null)
+                {
+                     
+                    return Json(new AjaxResponse(new AjaxResponse()));
 
+                } 
+                else
+                    return Json(new AjaxResponse(new Exception("Пользователь с таким номером пасспорта существует")));
             }
             catch
             {
-                string a = "azaza";
+                return null;
             }
         }
 
@@ -51,6 +57,7 @@ namespace Clients.Controllers
             return Json(dd, JsonRequestBehavior.AllowGet);
         }
 
+        
         [HttpGet]
         public JsonResult getFamilyPosition()
         {
@@ -65,8 +72,6 @@ namespace Clients.Controllers
 
             return Json(dd, JsonRequestBehavior.AllowGet);
         }
-
-
         [HttpGet]
         public JsonResult getDisabilities()
         {
@@ -112,6 +117,41 @@ namespace Clients.Controllers
             public DropDown(List<DropdownValues> list)
             {
                 this.results = list;
+            }
+        }
+
+        public class AjaxResponse
+        {
+            public AjaxResponse()
+            {
+                Success = true;
+                Data = new List<object>();
+            }
+
+            public AjaxResponse(Exception exception)
+                : this()
+            {
+                Success = false;
+                Errors = new[] { exception.Message };
+            }
+
+            public AjaxResponse(object data)
+                : this()
+            {
+                Data = data;
+            }
+
+            public bool Success
+            {
+                get; set;
+            }
+            public object Data
+            {
+                get; set;
+            }
+            public string[] Errors
+            {
+                get; set;
             }
         }
     }

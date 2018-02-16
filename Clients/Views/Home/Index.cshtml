@@ -10,13 +10,13 @@
 @Styles.Render("~/Content/calendar.min.css")
 <div id="mainform" style="margin-top:6%">
 
-    <form class="ui form" id="aza">
+    <form class="ui form" id="aza" onsubmit="return false;">
         <div class="required field">
             <label>Фамилия</label>
             <input name="SurName" type="text" placeholder="Фамилия">
         </div>
 
-        <div class="required field">
+        <div class="required field" id="name">
             <label>Полное имя</label>
             <input type="text" placeholder="Полное имя" name="Name">
         </div>
@@ -41,13 +41,13 @@
             <input type="hidden" >
             <div class="field">
                 <div class="ui slider checkbox">
-                    <input type="radio" name="Gender" >
+                    <input type="radio" name="Gender"  value="Male">
                     <label>Мужской</label>
                 </div>
             </div>
             <div class="field">
                 <div class="ui slider checkbox">
-                    <input type="radio" name="Gender">
+                    <input type="radio" name="Gender" value="Female">
                     <label>Женский</label>
                 </div>
             </div>
@@ -64,11 +64,6 @@
         </div>
 
         <div class="required field">
-            <label>Идент. номер</label>
-            <input type="text" placeholder="Идент. номер" name="PassportID">
-        </div>
-
-        <div class="required field">
             <label>Кем выдан</label>
             <input type="text" placeholder="Кем выдан" name="IssueAuthority">
         </div>
@@ -82,6 +77,12 @@
                 </div>
             </div>
         </div>
+
+        <div class="required field">
+            <label>Идент. номер</label>
+            <input type="text" placeholder="Идент. номер" name="PassportID">
+        </div>
+
 
         <div class="required field">
             <label>Место рождения</label>
@@ -190,8 +191,9 @@
 
         <div class="ui submit button">Submit</div>
 
-        <div class="ui error message"></div>
-    </form>
+        <div class="ui error message" name="errorMsg"></div>
+</form>
+    <div class="ui error message" id="errors"></div>
 
 
 
@@ -246,8 +248,8 @@
         }
 
     });
-
-
+    $('#errors').hide();
+    
     $('.ui.form')
         .form({
 
@@ -316,30 +318,12 @@
                         }
                     ]
                 },
-                PassportID: {
-                    identifier: 'PassportID',
-                    rules: [
-                        {
-                            type: 'regExp[/^[A-Z0-9]{14}$/]',
-                            prompt: 'Введите идентификационный номер'
-                        }
-                    ]
-                },
                 IssueAuthority: {
                     identifier: 'IssueAuthority',
                     rules: [
                         {
                             type: 'empty',
                             prompt: 'Введите номер орган номер'
-                        }
-                    ]
-                },
-                ActualAddress: {
-                    identifier: 'ActualAddress',
-                    rules: [
-                        {
-                            type: 'empty',
-                            prompt: 'Введите адрес прописки'
                         }
                     ]
                 },
@@ -352,12 +336,85 @@
                         }
                     ]
                 },
+                PassportID: {
+                    identifier: 'PassportID',
+                    rules: [
+                        {
+                            type: 'regExp[/^[A-Z0-9]{14}$/]',
+                            prompt: 'Введите идентификационный номер'
+                        }
+                    ]
+                },
                 BirthPlace: {
                     identifier: 'BirthPlace',
                     rules: [
                         {
                             type: 'empty',
                             prompt: 'Введите место рождения'
+                        }
+                    ]
+                },
+                ActualCity: {
+                    identifier: 'ActualCity',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Введите город фактического проживания'
+                        }
+                    ]
+                },
+                ActualAddress: {
+                    identifier: 'ActualAddress',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Введите адрес фактического проживания'
+                        }
+                    ]
+                },
+                PhoneNumber: {
+                    identifier: 'PhoneNumber',
+                    rules: [
+                        {
+                            type: 'regExp[/^([+]?[0-9]{12})?$/]',
+                            prompt: 'Введите мобильный телефон вида "+375447570139"'
+                        }
+                    ]
+                },
+                HomePhoneNumber: {
+                    identifier: 'HomePhoneNumber',
+                    rules: [
+                        {
+                            type: 'regExp[/^([0-9]{5,12})?$/]',
+                            prompt: 'Введите домашний номер телефона вида "365484"'
+                        }
+                    ]
+                },
+                Email: {
+                    identifier: 'Email',
+                    optional: true,
+                    rules: [
+                        {
+                            type: 'email',
+                            prompt: 'Введите корректный email'
+                        }
+                    ]
+                },
+                ResidenceCityID: {
+                    identifier: 'ResidenceCityID',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Введите город прописки'
+                        }
+                    ]
+                },
+                Residence: {
+                    identifier: 'Residence',
+                    rules: [
+                        {
+                            type: 'empty',
+                            prompt: 'Введите адрес прописки'
                         }
                     ]
                 },
@@ -379,24 +436,8 @@
                         }
                     ]
                 },
-                ActualCity: {
-                    identifier: 'ActualCity',
-                    rules: [
-                        {
-                            type: 'empty',
-                            prompt: 'Введите город фактического проживания'
-                        }
-                    ]
-                },
-                ResidenceCityID: {
-                    identifier: 'ResidenceCityID',
-                    rules: [
-                        {
-                            type: 'empty',
-                            prompt: 'Введите город прописки'
-                        }
-                    ]
-                },
+               
+  
                 DisabilityID: {
                     identifier: 'DisabilityID',
                     rules: [
@@ -405,56 +446,7 @@
                             prompt: 'Введите значение в поле инвалидность'
                         }
                     ]
-                },
-               
-  
-                dropdown: {
-                    identifier: 'dropdown',
-                    rules: [
-                        {
-                            type: 'empty',
-                            prompt: 'Please select a dropdown value'
-                        }
-                    ]
-                },
-                Residence: {
-                    identifier: 'Residence',
-                    rules: [
-                        {
-                            type: 'empty',
-                            prompt: 'Введите адрес фактического проживания'
-                        }
-                    ]
-                },
-                HomePhoneNumber: {
-                    identifier: 'HomePhoneNumber',
-                    rules: [
-                        {
-                            type: 'regExp[/^([+]?[0-9]{12})?$/]',
-                            prompt: 'Введите мобильный телефон вида "+375447570139"'
-                        }
-                    ]
-                },
-                HomePhone: {
-                    identifier: 'HomePhone',
-                    rules: [
-                        {
-                            type: 'regExp[/^([0-9]{5,12})?$/]',
-                            prompt: 'Введите мобильный телефон вида "365484"'
-                        }
-                    ]
-                },
-                Email: {
-                    identifier: 'Email',
-                    optional: true,
-                    rules: [
-                        {
-                            type: 'email',
-                            prompt: 'Введите корректный email'
-                        }
-                    ]
-                },
-
+                }          
             },  
         });
 
@@ -470,25 +462,36 @@
         PassportID: '12345678901234',
         IssueAuthority: 'pinskigovd',
         IssueDate: 'Февраль 15, 2018',
-        ActualAddress: 'telephonnay',
-        Residence:'kedishko'
+        ActualAddress: 'kedishko',
+        Residence:'telephonnay'
 
         
     });
 
-    $('#mainform .ui.submit.button').on('click', function () {
+    $('#mainform .ui.button').on('click', function () {
         $mydata = $aza.form('get values');
-        $.ajax({
-            type: 'POST',
-            contentType: "application/json; charset=utf-8",
-            url: '/home/saveClient',
-            data: JSON.stringify($mydata),
-            success: function (data) {
-                alert('zaza')
-            },
-            async: true
-        });
+        if ($aza.form('is valid')) {    
+            $.ajax({
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                url: '/home/saveClient',
+                data: JSON.stringify($mydata),
+                success: function (data) {
 
+                    if (data.Success === true) {
+                        location.reload();
+                    }
+                    else {
+                        $('#errors').show();
+                        $('#errors').append("<ul><li>" + data.Errors + "</li></ul>");
+                        $('#name').addClass('error');
+                    }
+
+                },
+
+                async: true
+            });
+        }
     })
 
     $('.ui.checkbox').checkbox();
