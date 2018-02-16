@@ -24,13 +24,21 @@ namespace Clients.Controllers
         {
             try
             {
-                //context.Clients.Add(client);
-                // context.SaveChanges();
-                Client thisClient = context.Clients.Where(c => c.Series == client.Series).Where(c => c.Number == client.Number).FirstOrDefault();
+               Client thisClient = context.Clients.Where(c => c.Series == client.Series).Where(c => c.Number == client.Number).FirstOrDefault();
                 if (thisClient== null)
                 {
-                     
-                    return Json(new AjaxResponse(new AjaxResponse()));
+                    thisClient = context.Clients.Where(c => c.PassportID == client.PassportID).FirstOrDefault();
+                    if (thisClient == null)
+                    {
+                        context.Clients.Add(client);
+                        context.SaveChanges();
+
+                        return Json(new AjaxResponse(new AjaxResponse()));
+                    }
+                    else
+                    {
+                        return Json(new AjaxResponse(new Exception("Пользователь с таким Идентификационным номером пасспорта существует")));
+                    }
 
                 } 
                 else

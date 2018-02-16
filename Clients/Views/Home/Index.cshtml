@@ -16,7 +16,7 @@
             <input name="SurName" type="text" placeholder="Фамилия">
         </div>
 
-        <div class="required field" id="name">
+        <div class="required field">
             <label>Полное имя</label>
             <input type="text" placeholder="Полное имя" name="Name">
         </div>
@@ -58,9 +58,9 @@
             <input type="text" placeholder="Серия паспорта" name="Series">
         </div>
 
-        <div class="required field">
+        <div class="required field" id="passportNumber">
             <label>№ паспорта</label>
-            <input type="text" placeholder="№ паспорта" name="Number">
+            <input type="text" placeholder="№ паспорта" name="Number" >
         </div>
 
         <div class="required field">
@@ -78,7 +78,7 @@
             </div>
         </div>
 
-        <div class="required field">
+        <div class="required field" id="passportID">
             <label>Идент. номер</label>
             <input type="text" placeholder="Идент. номер" name="PassportID">
         </div>
@@ -482,9 +482,15 @@
                         location.reload();
                     }
                     else {
-                        $('#errors').show();
+                        $('#errors').empty();
                         $('#errors').append("<ul><li>" + data.Errors + "</li></ul>");
-                        $('#name').addClass('error');
+                        $('#errors').show();
+                        if (data.Errors == 'Пользователь с таким номером пасспорта существует') {
+                            $('#passportNumber').addClass('error');
+                        }
+                        else {
+                            $('#passportID').addClass('error');
+                        }
                     }
 
                 },
