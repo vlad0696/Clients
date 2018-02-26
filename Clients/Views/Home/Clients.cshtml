@@ -38,10 +38,22 @@
         </table>
     </div>
     <a class="ui button" href="/home/Clients?sort=1" style="margin-top:3%;">Cортировать</a>
+    <div class="ui button end" style="margin-top:3%;">Закончить День</div>
+    
 </div>
 
 
 
 <script>
-
+    $('.ui.button.end').on('click', function (){
+        $.ajax({
+            type: 'POST',
+            contentType: "application/json; charset=utf-8",
+            url: '/Bank/EndDay',
+            success: function (data) {
+                location.href = '/home/Clients';
+            },
+            async: true
+        });
+    })
 </script>

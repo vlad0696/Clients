@@ -30,7 +30,8 @@ namespace Clients.Controllers
                     DateStart = deposit.DateStart,
                     Period = deposit.Period,
                     Amount = deposit.Amount,
-                    ClientsDepositID = deposit.ClientsDepositID
+                    ClientsDepositID = deposit.ClientsDepositID,
+                    Active = deposit.Active
 
                 });
             }
@@ -47,6 +48,7 @@ namespace Clients.Controllers
                         deposits[i].DepositName = d.DepositName;
                         deposits[i].Percent = d.Percent;
                         deposits[i].CurrencyID = d.CurrencyID;
+                        deposits[i].Revocable = d.Revocable;
                     }
                 }
                 foreach (Currency c in Currency)
@@ -66,6 +68,7 @@ namespace Clients.Controllers
                 i++;
             }
             ViewBag.deposits = deposits;
+            
             return View();
         }
 
@@ -83,6 +86,8 @@ namespace Clients.Controllers
             public int Period { get; set; }
             public double Amount { get; set; }
             public double InterestAmount { get; set; }
+            public bool Active { get; set; }
+            public bool Revocable { get; set; }
 
         }
 
@@ -141,16 +146,76 @@ namespace Clients.Controllers
             clientsDeposit.DateEnd = DateTime.Today.AddMonths(deposit.Period);
             clientsDeposit.Period = deposit.Period;
             clientsDeposit.ClientDepositNumber = deposit.BalanceId.ToString() + num;
+            clientsDeposit.Revocable = deposit.Revocable;
+            clientsDeposit.Active = true;
             context.ClientsDeposits.Add(clientsDeposit);
+            context.SaveChanges();
+            Currency currency = context.Currency.Where(c => c.CurrencyID == deposit.CurrencyID).FirstOrDefault();
+
+            ClientsDeposit Fond = context.ClientsDeposits.Where(d => d.ClientID == 0).FirstOrDefault();
+            ClientsDeposit fond = Fond;
+            fond.Amount = Fond.Amount+ clientsDeposit.Amount * currency.Value;
+            context.Entry(Fond).CurrentValues.SetValues(fond);
+
+            InterestDeposit interestDeposit = new InterestDeposit();
+            interestDeposit.ClientsDepositID = clientsDeposit.ClientsDepositID;
+            interestDeposit.InterestDepositNumber = clientsDeposit.ClientDepositNumber = "7770" + num;
+            interestDeposit.InitialAmount = clientsDeposit.Amount;
+            interestDeposit.Percent = deposit.Percent;
+            interestDeposit.Amount = 0;
+            interestDeposit.Active = true;
+            context.InterestDeposits.Add(interestDeposit);
             context.SaveChanges();
             return Json(new AjaxResponse(new AjaxResponse()));
         }
 
+        
         public class NewDeposit
         {
             public int id { get; set; }
             public int Deposit { get; set; }
             public int Ammount { get; set; }
+        }
+
+        public ActionResult EndDay()
+        {
+            List<InterestDeposit> listInterestDepostis = context.InterestDeposits.ToList();
+            ClientsDeposit Fond = context.ClientsDeposits.Where(c => c.ClientID == 0).FirstOrDefault();
+            Double fondAmmount = Fond.Amount;
+            InterestDeposit temp;
+            foreach (InterestDeposit deposit in listInterestDepostis)
+            {
+                if (deposit.Active)
+                {
+                    temp = deposit;
+                    temp.Amount += ((temp.InitialAmount * temp.Percent) / 100) / 365;
+                    fondAmmount-= ((temp.InitialAmount * temp.Percent) / 100) / 365;
+                    context.Entry(deposit).CurrentValues.SetValues(temp);
+                }
+            }
+            
+            ClientsDeposit tempFond = Fond;
+            tempFond.Amount = fondAmmount;
+            context.Entry(Fond).CurrentValues.SetValues(tempFond);
+            context.SaveChanges();
+            return Json(new AjaxResponse(new  AjaxResponse()));
+        }
+        public ActionResult Revocable(int id)
+        {
+            InterestDeposit interestDeposit = context.InterestDeposits.Where(i=>i.ClientsDepositID==id).FirstOrDefault();
+            InterestDeposit tempInterest = interestDeposit;
+            tempInterest.Active = false;
+            context.Entry(interestDeposit).CurrentValues.SetValues(tempInterest);
+            ClientsDeposit clientDeposit = context.ClientsDeposits.Where(c => c.ClientsDepositID ==id).FirstOrDefault();
+            ClientsDeposit tempDeposit = clientDeposit;
+            tempDeposit.Active = false;
+            context.Entry(clientDeposit).CurrentValues.SetValues(tempDeposit);
+            ClientsDeposit Fond = context.ClientsDeposits.Where(c => c.ClientID == 0).FirstOrDefault();
+            ClientsDeposit tempFond = Fond;
+            tempFond.Amount -= clientDeposit.Amount;
+            context.Entry(Fond).CurrentValues.SetValues(tempFond);
+            context.SaveChanges();
+            return RedirectToAction("/DepositList/"+clientDeposit.ClientID.ToString());
         }
     }
 }

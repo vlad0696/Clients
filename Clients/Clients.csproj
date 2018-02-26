@@ -197,6 +197,14 @@
     <Compile Include="Migrations\201802252019449_2lab_5Migration.Designer.cs">
       <DependentUpon>201802252019449_2lab_5Migration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802260847138_2lab_6Migration.cs" />
+    <Compile Include="Migrations\201802260847138_2lab_6Migration.Designer.cs">
+      <DependentUpon>201802260847138_2lab_6Migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802261000336_2lab_7Migration.cs" />
+    <Compile Include="Migrations\201802261000336_2lab_7Migration.Designer.cs">
+      <DependentUpon>201802261000336_2lab_7Migration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\ClientsDeposit.cs" />
@@ -471,6 +479,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802252019449_2lab_5Migration.resx">
       <DependentUpon>201802252019449_2lab_5Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802260847138_2lab_6Migration.resx">
+      <DependentUpon>201802260847138_2lab_6Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802261000336_2lab_7Migration.resx">
+      <DependentUpon>201802261000336_2lab_7Migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -23,6 +23,9 @@ namespace Clients.Models
 
         public int Period { get; set; }
 
-       
+        public bool Revocable { get; set; }
+
+        public bool Active { get; set; }
+
     }
 }

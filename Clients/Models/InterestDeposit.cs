@@ -15,5 +15,11 @@ namespace Clients.Models
         
         public double Amount { get; set; }
 
+        public double InitialAmount { get; set; }
+
+        public int Percent { get; set; }
+
+        public bool Active { get; set; }
+
     }
 }

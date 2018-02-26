@@ -22,10 +22,11 @@
     </table>
     <a class="ui button" href="/Bank/CreateNew/@ViewBag.client.ClientID">Новый депозит</a>
     <h3>Дпозиты</h3>
-    @if (ViewBag.deposits != null)
+   @if (ViewBag.deposits != null)
     {
     <table class="ui celled table">
         <tr>
+            <td><p>Cтатус</p></td>
             <td><p>Название</p></td>
             <td><p>Номер</p></td>
             <td><p>Валюта</p></td>
@@ -34,10 +35,20 @@
             <td><p>Продолжительность</p></td>
             <td><p>Вклад</p></td>
             <td><p>Процент по вкладу</p></td>
+            <td>Отозвать</td>
+            
         </tr>
         @foreach (var c in ViewBag.deposits)
         {
         <tr>
+            @if (c.Active)
+            {
+                <td><p>Активный<p></td>
+            }
+            else
+            {
+                <td><p>Закрытый<p></td>
+            }
             <td><p>@c.DepositName</p></td>
             <td><p>@c.DepositNumber</p></td>
             <td><p>@c.Currency</p></td>
@@ -46,7 +57,26 @@
             <td><p>@c.Period месяцев</p></td>
             <td><p>@c.Amount</p></td>
             <td><p>@c.InterestAmount</p></td>
-        </tr>
+            <td>
+                @if (c.Revocable)
+                {
+                    if (c.Active)
+                    {
+                        @Html.ActionLink("Отозвать", "Revocable", "Bank", new { id = @c.ClientsDepositID }, null);
+                    }
+                    else
+                    {
+                        <p>Отозван</p>
+                    }
+
+                }
+                else
+                {
+                    <p>Нельзя отозвать</p>
+                }
+
+            </td>
+</tr>
         }
     </table>
     }
