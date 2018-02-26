@@ -1,0 +1,47 @@
+﻿@{
+    ViewBag.Title = "Clinets";
+}
+@Scripts.Render("~/Scripts/jquery-3.3.1.js")
+@Scripts.Render("~/Scripts/semantic.min.js")
+@Scripts.Render("~/Content/dropdown.min.js")
+@Scripts.Render("~/Content/calendar.min.js")
+@Styles.Render("~/Content/semantic.css")
+@Styles.Render("~/Content/dropdown.min.css")
+@Styles.Render("~/Content/calendar.min.css")
+<div id="mainform" style="margin-top:6%">
+
+    <div>
+        <h3>Клиенты</h3>
+        <table class="ui celled table">
+            <tr>
+                <td><p>Фамилия</p></td>
+                <td><p>Имя</p></td>
+                <td><p>Отчество</p></td>
+                <td><p>Номер паспорта</p></td>
+                <td><p>Номер телефона</p></td>
+                <td></td>
+            </tr>
+            @foreach (var c in ViewBag.Clients)
+            {
+            <tr>
+                <td><p>@c.SurName</p></td>
+                <td><p>@c.Name</p></td>
+                <td><p>@c.SecondName</p></td>
+                <td><p>@c.Series @c.Number</p></td>
+                <td><p>@c.PhoneNumber</p></td>
+                <td><p><a href="/Home/Edit/@c.ClientID">Редактировать</a></p></td>
+                <td><p><a href="/Home/Delete/@c.ClientID">Удалить</a></p></td>
+                <td><p><a href="/Bank/DepositList/@c.ClientID">Депозиты</a></p></td>
+                <td><p><a href="/Bank/Credit/@c.ClientID">Кредиты</a></p></td>
+            </tr>
+            }
+        </table>
+    </div>
+    <a class="ui button" href="/home/Clients?sort=1" style="margin-top:3%;">Cортировать</a>
+</div>
+
+
+
+<script>
+
+</script>

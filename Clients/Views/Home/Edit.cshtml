@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Редактирование";
 }
 @Scripts.Render("~/Scripts/jquery-3.3.1.js")
 @Scripts.Render("~/Scripts/semantic.min.js")
@@ -11,6 +11,7 @@
 <div id="mainform" style="margin-top:6%">
 
     <form class="ui form" id="aza" onsubmit="return false;">
+        <input type="hidden" name="ClientID">
         <div class="required field">
             <label>Фамилия</label>
             <input name="SurName" type="text" placeholder="Фамилия">
@@ -38,10 +39,10 @@
 
         <div class="required grouped fields">
             <label>Пол</label>
-            <input type="hidden" >
+            <input type="hidden">
             <div class="field">
                 <div class="ui slider checkbox">
-                    <input type="radio" name="Gender"  value="Male">
+                    <input type="radio" name="Gender" value="Male">
                     <label>Мужской</label>
                 </div>
             </div>
@@ -60,7 +61,7 @@
 
         <div class="required field" id="passportNumber">
             <label>№ паспорта</label>
-            <input type="text" placeholder="№ паспорта" name="Number" >
+            <input type="text" placeholder="№ паспорта" name="Number">
         </div>
 
         <div class="required field">
@@ -83,23 +84,32 @@
             <input type="text" placeholder="Идент. номер" name="PassportID">
         </div>
 
-
         <div class="required field">
             <label>Место рождения</label>
-            <div class="ui selection dropdown" name="dropdown">
-                <input type="hidden" name="BirthPlace">
-                <div class="text"></div>
-                <i class="dropdown icon"></i>
-            </div>
+            <select class="ui dropdown" name="BirthPlace">
+                <option value="1">Минск</option>
+                <option value="2">Пинск</option>
+                <option value="3">Полоцк</option>
+                <option value="4">Витбеск</option>
+                <option value="5">Брест</option>
+                <option value="6">Гомель</option>
+                <option value="7">Гродно</option>
+                <option value="8">Могилёв</option>
+            </select>
         </div>
 
         <div class="required field">
             <label>Город факт. проживания</label>
-            <div class="ui selection dropdown ">
-                <input type="hidden" name="ActualCity">
-                <div class="text"></div>
-                <i class="dropdown icon"></i>
-            </div>
+            <select class="ui dropdown" name="ActualCity">
+                <option value="1">Минск</option>
+                <option value="2">Пинск</option>
+                <option value="3">Полоцк</option>
+                <option value="4">Витбеск</option>
+                <option value="5">Брест</option>
+                <option value="6">Гомель</option>
+                <option value="7">Гродно</option>
+                <option value="8">Могилёв</option>
+            </select>
         </div>
 
         <div class="required field">
@@ -134,12 +144,18 @@
 
         <div class="required field">
             <label>Город прописки</label>
-            <div class="ui selection dropdown ">
-                <input type="hidden" name="ResidenceCityID" >
-                <div class="text"></div>
-                <i class="dropdown icon"></i>
-            </div>
+            <select class="ui dropdown" name="ResidenceCityID">
+                <option value="1">Минск</option>
+                <option value="2">Пинск</option>
+                <option value="3">Полоцк</option>
+                <option value="4">Витбеск</option>
+                <option value="5">Брест</option>
+                <option value="6">Гомель</option>
+                <option value="7">Гродно</option>
+                <option value="8">Могилёв</option>
+            </select>
         </div>
+
         <div class="required field">
             <label>Адрес прописки</label>
             <input type="text" placeholder="Адрес прописки" name="Residence">
@@ -147,29 +163,35 @@
 
         <div class="required field">
             <label>Семейное положение</label>
-            <div class="ui selection dropdown position">
-                <input type="hidden" name="FamilyPositionID">
-                <div class="text"></div>
-                <i class="dropdown icon"></i>
-            </div>
+            <select class="ui dropdown" name="FamilyPositionID">
+                <option value="1">Холост/Не замужем</option>
+                <option value="2">Женат/Замужем</option>
+                <option value="3">Вдовец/Вдова</option>
+            </select>
         </div>
 
         <div class="required field">
             <label>Гражданство</label>
-            <div class="ui selection dropdown nationality">
-                <input type="hidden" name="NationalityID">
-                <div class="text"></div>
-                <i class="dropdown icon"></i>
-            </div>
+            <select class="ui dropdown" name="NationalityID">
+                <option value="1">Белорус</option>
+                <option value="2">Россянин</option>
+                <option value="3">Итальянец</option>
+                <option value="4">Китаец</option>
+                <option value="5">Японец</option>
+                <option value="6">Американец</option>
+                <option value="7">Немец</option>
+            </select>
         </div>
 
-        <div class="required field" >
+        <div class="required field">
             <label>Инвалидность</label>
-            <div class="ui selection dropdown disabilities" >
-                <input type="hidden" name="DisabilityID">
-                <div class="text" ></div>
-                <i class="dropdown icon"></i>
-            </div>
+            <select class="ui dropdown" name="disabilities">
+                <option value="1">Нет</option>
+                <option value="2">1 группа</option>
+                <option value="3">2 группа</option>
+                <option value="4">3 группа</option>
+                <option value="5">4 группа</option>
+            </select>
         </div>
 
         <div class="ui checkbox">
@@ -186,13 +208,13 @@
                 <input type="checkbox" name="Reservist">
                 <label>Военнообязанный</label>
             </div>
-        </div>   
+        </div>
 
 
         <div class="ui submit button">Submit</div>
 
         <div class="ui error message" name="errorMsg"></div>
-</form>
+    </form>
     <div class="ui error message" id="errors"></div>
 
 
@@ -212,7 +234,7 @@
             monthsShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
             today: 'Сегодня'
         },
-    }); 
+    });
     $('#IssueDate').calendar({
         type: 'date',
         firstDayOfWeek: 1,
@@ -224,32 +246,9 @@
             today: 'Сегодня'
         },
     });
-    $('.ui.dropdown').dropdown({
-        apiSettings: {
-            url: '/Home/getCities'
-        }
-
-    });
-    $('.ui.dropdown.position').dropdown({
-        apiSettings: {
-            url: '/Home/getFamilyPosition'
-        }
-
-    });
-    $('.ui.dropdown.disabilities').dropdown({
-        apiSettings: {
-            url: '/Home/getDisabilities'
-        }
-
-    });
-    $('.ui.dropdown.nationality').dropdown({
-        apiSettings: {
-            url: '/Home/getNationalitiy'
-        }
-
-    });
+    $('.ui.dropdown').dropdown();
     $('#errors').hide();
-    
+
     $('.ui.form')
         .form({
 
@@ -436,8 +435,8 @@
                         }
                     ]
                 },
-               
-  
+
+
                 DisabilityID: {
                     identifier: 'DisabilityID',
                     rules: [
@@ -446,35 +445,47 @@
                             prompt: 'Введите значение в поле инвалидность'
                         }
                     ]
-                }          
-            },  
+                }
+            },
         });
 
     var $aza = $('#aza')
-  /*  $aza.form('set values', {
-        SurName: 'Грамович',
-        Name: 'Владислав',
-        SecondName: 'Александрович',
-        DOB: 'Февраль 15, 2018',
-        Gender: '',
-        Series: 'AB',
-        Number: '2677302',
-        PassportID: '12345678901234',
-        IssueAuthority: 'pinskigovd',
-        IssueDate: 'Февраль 15, 2018',
-        ActualAddress: 'kedishko',
-        Residence:'telephonnay'
-
-        
+    $aza.form('set values', {
+        ClientID:'@ViewBag.Clients.ClientID',
+        SurName:'@ViewBag.Clients.SurName',
+        Name: '@ViewBag.Clients.Name',
+        SecondName: '@ViewBag.Clients.SecondName',
+        DOB: '@ViewBag.Clients.DOB',
+        Gender: '@ViewBag.Clients.Gender',
+        Email:'@ViewBag.Clients.Email',
+        Series: '@ViewBag.Clients.Series',
+        Number: '@ViewBag.Clients.Number',
+        PassportID: '@ViewBag.Clients.PassportID',
+        IssueAuthority: '@ViewBag.Clients.IssueAuthority',
+        IssueDate: '@ViewBag.Clients.IssueDate',
+        ActualAddress: '@ViewBag.Clients.ActualAddress',
+        Residence:'@ViewBag.Clients.Residence',
+        BirthPlace: '@ViewBag.Clients.BirthPlace',
+        ActualCity: '@ViewBag.Clients.ActualCity',
+        PhoneNumber: '@ViewBag.Clients.PhoneNumber',
+        HomePhoneNumber: '@ViewBag.Clients.HomePhoneNumber',
+        Job: '@ViewBag.Clients.Job',
+        FamilyPositionID: '@ViewBag.Clients.FamilyPositionID',
+        NationalityID: '@ViewBag.Clients.NationalityID',
+        DisabilityID: '@ViewBag.Clients.DisabilityID',
+        Pensioner: '@ViewBag.Clients.Pensioner',
+        Position:'@ViewBag.Clients.Position'
+        Income: '@ViewBag.Clients.Income',
+        Reservist:'@ViewBag.Clients.Reservist'
     });
-    */
+
     $('#mainform .ui.button').on('click', function () {
         $mydata = $aza.form('get values');
-        if ($aza.form('is valid')) {    
+        if ($aza.form('is valid')) {
             $.ajax({
                 type: 'POST',
                 contentType: "application/json; charset=utf-8",
-                url: '/home/saveClient',
+                url: '/home/edit',
                 data: JSON.stringify($mydata),
                 success: function (data) {
 
@@ -502,3 +513,4 @@
 
     $('.ui.checkbox').checkbox();
 </script>
+

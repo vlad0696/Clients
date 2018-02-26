@@ -1,0 +1,56 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@Scripts.Render("~/Scripts/jquery-3.3.1.js")
+@Scripts.Render("~/Scripts/semantic.min.js")
+@Scripts.Render("~/Content/dropdown.min.js")
+@Scripts.Render("~/Content/calendar.min.js")
+@Styles.Render("~/Content/semantic.css")
+@Styles.Render("~/Content/dropdown.min.css")
+@Styles.Render("~/Content/calendar.min.css")
+<div class="main form" style="margin-top:6%">
+    <h3>Список депозитов</h3>
+    <table class="ui celled table">
+        <tr>
+            <td><p>ФИО</p></td>
+            <td><p>Номер паспорта</p></td>
+        </tr>
+        <tr>
+            <td><p>@ViewBag.client.SurName @ViewBag.client.Name @ViewBag.client.SecondName</p></td>
+            <td><p>@ViewBag.client.Series @ViewBag.client.Number</p></td>
+        </tr>
+    </table>
+    <a class="ui button" href="/Bank/CreateNew/@ViewBag.client.ClientID">Новый депозит</a>
+    <h3>Дпозиты</h3>
+    @if (ViewBag.deposits != null)
+    {
+    <table class="ui celled table">
+        <tr>
+            <td><p>Название</p></td>
+            <td><p>Номер</p></td>
+            <td><p>Валюта</p></td>
+            <td><p>Процент</p></td>
+            <td><p>Дата начала</p></td>
+            <td><p>Продолжительность</p></td>
+            <td><p>Вклад</p></td>
+            <td><p>Процент по вкладу</p></td>
+        </tr>
+        @foreach (var c in ViewBag.deposits)
+        {
+        <tr>
+            <td><p>@c.DepositName</p></td>
+            <td><p>@c.DepositNumber</p></td>
+            <td><p>@c.Currency</p></td>
+            <td><p>@c.Percent</p></td>
+            <td><p>@c.DateStart</p></td>
+            <td><p>@c.Period месяцев</p></td>
+            <td><p>@c.Amount</p></td>
+            <td><p>@c.InterestAmount</p></td>
+        </tr>
+        }
+    </table>
+    }
+    else{
+        <h5>    У этого пользователя нет депозитов</h5>
+    }
+</div>

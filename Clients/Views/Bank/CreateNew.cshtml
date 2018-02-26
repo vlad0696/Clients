@@ -1,0 +1,72 @@
+﻿@{
+    ViewBag.Title = "Clinets";
+}
+@Scripts.Render("~/Scripts/jquery-3.3.1.js")
+@Scripts.Render("~/Scripts/semantic.min.js")
+@Scripts.Render("~/Content/dropdown.min.js")
+@Scripts.Render("~/Content/calendar.min.js")
+@Styles.Render("~/Content/semantic.css")
+@Styles.Render("~/Content/dropdown.min.css")
+@Styles.Render("~/Content/calendar.min.css")
+<div class="new deposit" style="margin-top:6%">
+    <form class="ui form" id="aza" onsubmit="return false;">
+
+        <input type="hidden" value="@ViewBag.client" name="id"/>
+
+            <label>Депозит</label>
+            <div class="ui selection dropdown ">
+                <input type="hidden" name="Deposit" placeholder="Депозит">
+                <div class="text"></div>
+                <i class="dropdown icon"></i>
+            </div>
+
+        <div class="required field">
+            <label>Взнос</label>
+            <input name="Ammount" type="text" placeholder="Взнос">
+        </div>
+
+        <div class="ui submit button">Submit</div>
+
+    </form>
+</div>
+
+
+<script>
+
+
+    $('.ui.selection.dropdown').dropdown({
+        apiSettings: {
+            url: '/Bank/getDeposits'
+        }
+
+    });
+   
+
+    var $aza = $('#aza')
+    console.log($aza.form('get values'));
+    $('.ui.button').on('click', function () {
+        console.log($aza.form('get values'));
+        $mydata = $aza.form('get values');
+        if ($aza.form('is valid')) {
+            $.ajax({
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                url: '/Bank/CreateNew',
+                data: JSON.stringify($mydata),
+                success: function (data) {
+
+                    if (data.Success === true) {
+                        location.href = "/Bank/DepositList/@ViewBag.client";
+                    }
+                    else {
+                    }
+
+                },
+
+                async: true
+            });
+        }
+    })
+
+    $('.ui.checkbox').checkbox();
+</script>

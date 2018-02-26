@@ -30,7 +30,7 @@ namespace Clients.Models
         [Required]
         public string IssueDate { get; set; }
         [Required]
-        public int IssueAuthority { get; set; }
+        public String IssueAuthority { get; set; }
         [Required]
         public string BirthPlace { get; set; }
         /// <summary>

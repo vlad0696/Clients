@@ -148,7 +148,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\ClientsController.cs" />
+    <Compile Include="Controllers\BankController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -173,13 +173,42 @@
     <Compile Include="Migrations\201802160920237_AddClientGenderMigration.Designer.cs">
       <DependentUpon>201802160920237_AddClientGenderMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802251705023_AddstringMigration.cs" />
+    <Compile Include="Migrations\201802251705023_AddstringMigration.Designer.cs">
+      <DependentUpon>201802251705023_AddstringMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802252001563_2lab_1Migration.cs" />
+    <Compile Include="Migrations\201802252001563_2lab_1Migration.Designer.cs">
+      <DependentUpon>201802252001563_2lab_1Migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802252005162_2lab_2Migration.cs" />
+    <Compile Include="Migrations\201802252005162_2lab_2Migration.Designer.cs">
+      <DependentUpon>201802252005162_2lab_2Migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802252008121_2lab_3Migration.cs" />
+    <Compile Include="Migrations\201802252008121_2lab_3Migration.Designer.cs">
+      <DependentUpon>201802252008121_2lab_3Migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802252017230_2lab_4Migration.cs" />
+    <Compile Include="Migrations\201802252017230_2lab_4Migration.Designer.cs">
+      <DependentUpon>201802252017230_2lab_4Migration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201802252019449_2lab_5Migration.cs" />
+    <Compile Include="Migrations\201802252019449_2lab_5Migration.Designer.cs">
+      <DependentUpon>201802252019449_2lab_5Migration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\ClientsDeposit.cs" />
     <Compile Include="Models\Contacts.cs" />
     <Compile Include="Models\Cities.cs" />
+    <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\DbInitializer.cs" />
+    <Compile Include="Models\Deposit.cs" />
     <Compile Include="Models\Disability.cs" />
+    <Compile Include="Models\DropDown.cs" />
     <Compile Include="Models\FamilyPosition.cs" />
+    <Compile Include="Models\InterestDeposit.cs" />
     <Compile Include="Models\Nationality.cs" />
     <Compile Include="Models\PassportData.cs" />
     <Compile Include="Models\Person.cs" />
@@ -389,11 +418,10 @@
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Person.cshtml" />
-    <Content Include="Views\Clients\Create.cshtml" />
-    <Content Include="Views\Clients\Delete.cshtml" />
-    <Content Include="Views\Clients\Details.cshtml" />
-    <Content Include="Views\Clients\Edit.cshtml" />
-    <Content Include="Views\Clients\Index.cshtml" />
+    <Content Include="Views\Home\Clients.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
+    <Content Include="Views\Bank\DepositList.cshtml" />
+    <Content Include="Views\Bank\CreateNew.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -425,6 +453,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802160920237_AddClientGenderMigration.resx">
       <DependentUpon>201802160920237_AddClientGenderMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802251705023_AddstringMigration.resx">
+      <DependentUpon>201802251705023_AddstringMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802252001563_2lab_1Migration.resx">
+      <DependentUpon>201802252001563_2lab_1Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802252005162_2lab_2Migration.resx">
+      <DependentUpon>201802252005162_2lab_2Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802252008121_2lab_3Migration.resx">
+      <DependentUpon>201802252008121_2lab_3Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802252017230_2lab_4Migration.resx">
+      <DependentUpon>201802252017230_2lab_4Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802252019449_2lab_5Migration.resx">
+      <DependentUpon>201802252019449_2lab_5Migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -17,6 +17,10 @@ namespace Clients.Models
         public DbSet<Nationality> Nationality { get; set; }
         public DbSet<Disability> Disability { get; set; }
         public DbSet<Client> Clients { get; set; }
-       
+        public DbSet<Deposit> Deposits { get; set; }
+        public DbSet<ClientsDeposit> ClientsDeposits { get; set; }
+        public DbSet<InterestDeposit> InterestDeposits { get; set; }
+        public DbSet<Currency> Currency { get; set; }
+
     }
 }

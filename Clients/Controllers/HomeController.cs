@@ -14,9 +14,45 @@ namespace Clients.Controllers
         PersonContext context = new PersonContext();
         public ActionResult Index()
         {
-            IEnumerable<Person> books = context.Persons;
-            ViewBag.Books = books;
+
             return View();
+        }
+
+
+        public ActionResult Clients(int sort =0)
+        {
+            List<Client> Clients = context.Clients.ToList();
+            if (sort == 1)
+            {
+                Clients.Sort(delegate (Client cl1, Client cl2) { return cl1.SurName.CompareTo(cl2.SurName); });
+            }
+            ViewBag.Clients = Clients;
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id = 1)
+        {
+            Client Client = context.Clients.Where(c=>c.ClientID==id).First();
+            ViewBag.Clients = Client;
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Client client)
+        {
+            Client Client = context.Clients.Where(c => c.ClientID == client.ClientID).First();
+            context.Entry(Client).CurrentValues.SetValues(client);
+            context.SaveChanges();
+            ViewBag.Clients = Client;
+            return Json(new AjaxResponse(new AjaxResponse()));
+        }
+
+        public void Delete(int id)
+        {
+            Client Client = context.Clients.Where(c => c.ClientID == id).First();
+            context.Clients.Remove(Client);
+            context.SaveChanges();
         }
 
         [HttpPost]
@@ -107,60 +143,5 @@ namespace Clients.Controllers
             return Json(dd, JsonRequestBehavior.AllowGet);
         }
 
-        class DropdownValues{
-
-            public int value { get; set; }
-            public string name { get; set; }
-
-            public DropdownValues(int Value, string Name)
-            {
-                this.value = Value;
-                this.name = Name;
-            }
-        }
-        class DropDown
-        {
-            public bool success=true;
-            public List<DropdownValues> results { get; set; }
-            public DropDown(List<DropdownValues> list)
-            {
-                this.results = list;
-            }
-        }
-
-        public class AjaxResponse
-        {
-            public AjaxResponse()
-            {
-                Success = true;
-                Data = new List<object>();
-            }
-
-            public AjaxResponse(Exception exception)
-                : this()
-            {
-                Success = false;
-                Errors = new[] { exception.Message };
-            }
-
-            public AjaxResponse(object data)
-                : this()
-            {
-                Data = data;
-            }
-
-            public bool Success
-            {
-                get; set;
-            }
-            public object Data
-            {
-                get; set;
-            }
-            public string[] Errors
-            {
-                get; set;
-            }
-        }
     }
 }
