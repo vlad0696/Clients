@@ -1,0 +1,65 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@Scripts.Render("~/Scripts/jquery-3.3.1.js")
+@Scripts.Render("~/Scripts/semantic.min.js")
+@Scripts.Render("~/Content/dropdown.min.js")
+@Scripts.Render("~/Content/calendar.min.js")
+@Styles.Render("~/Content/semantic.css")
+@Styles.Render("~/Content/dropdown.min.css")
+@Styles.Render("~/Content/calendar.min.css")
+<div class="main form" style="margin-top:6%">
+    <h3>Список кредитов</h3>
+    <table class="ui celled table">
+        <tr>
+            <td><p>ФИО</p></td>
+            <td><p>Номер паспорта</p></td>
+        </tr>
+        <tr>
+            <td><p>@ViewBag.client.SurName @ViewBag.client.Name @ViewBag.client.SecondName</p></td>
+            <td><p>@ViewBag.client.Series @ViewBag.client.Number</p></td>
+        </tr>
+    </table>
+    <a class="ui button" href="/Bank/CreateNewCredit/@ViewBag.client.ClientID">Новый кредит</a>
+    <h3>Дпозиты</h3>
+    @if (ViewBag.credits != null)
+    {
+        <table class="ui celled table">
+            <tr>
+                <td><p>Cтатус</p></td>
+                <td><p>Название</p></td>
+                <td><p>Номер</p></td>
+                <td><p>Процент</p></td>
+                <td><p>Дата начала</p></td>
+                <td><p>Продолжительность</p></td>
+                <td><p>Кредит</p></td>
+
+            </tr>
+            @foreach (var c in ViewBag.credits)
+            {
+                <tr>
+                    @if (c.Active)
+                    {
+                        <td><p>Активный<p></td>
+                    }
+                    else
+                    {
+                        <td><p>Закрытый<p></td>
+                    }
+                    <td><p>@c.CreditName</p></td>
+                    <td><p>@c.CreditNumber</p></td>
+                    <td><p>@c.Percent</p></td>
+                    <td><p>@c.DateStart</p></td>
+                    <td><p>@c.Period месяцев</p></td>
+                    <td><p>@c.Amount</p></td>
+                
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <h5>    У этого пользователя нет депозитов</h5>
+    }
+</div>
+

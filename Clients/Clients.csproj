@@ -205,17 +205,24 @@
     <Compile Include="Migrations\201802261000336_2lab_7Migration.Designer.cs">
       <DependentUpon>201802261000336_2lab_7Migration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802261950130_3lab_1Migration.cs" />
+    <Compile Include="Migrations\201802261950130_3lab_1Migration.Designer.cs">
+      <DependentUpon>201802261950130_3lab_1Migration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Client.cs" />
+    <Compile Include="Models\ClientsCredit.cs" />
     <Compile Include="Models\ClientsDeposit.cs" />
     <Compile Include="Models\Contacts.cs" />
     <Compile Include="Models\Cities.cs" />
+    <Compile Include="Models\Credit.cs" />
     <Compile Include="Models\Currency.cs" />
     <Compile Include="Models\DbInitializer.cs" />
     <Compile Include="Models\Deposit.cs" />
     <Compile Include="Models\Disability.cs" />
     <Compile Include="Models\DropDown.cs" />
     <Compile Include="Models\FamilyPosition.cs" />
+    <Compile Include="Models\InterestCredit.cs" />
     <Compile Include="Models\InterestDeposit.cs" />
     <Compile Include="Models\Nationality.cs" />
     <Compile Include="Models\PassportData.cs" />
@@ -430,6 +437,8 @@
     <Content Include="Views\Home\Edit.cshtml" />
     <Content Include="Views\Bank\DepositList.cshtml" />
     <Content Include="Views\Bank\CreateNew.cshtml" />
+    <Content Include="Views\Bank\CreditsList.cshtml" />
+    <Content Include="Views\Bank\CreateNewCredit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -485,6 +494,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802261000336_2lab_7Migration.resx">
       <DependentUpon>201802261000336_2lab_7Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802261950130_3lab_1Migration.resx">
+      <DependentUpon>201802261950130_3lab_1Migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

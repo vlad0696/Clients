@@ -1,0 +1,68 @@
+﻿@{
+    ViewBag.Title = "Clinets";
+}
+@Scripts.Render("~/Scripts/jquery-3.3.1.js")
+@Scripts.Render("~/Scripts/semantic.min.js")
+@Scripts.Render("~/Content/dropdown.min.js")
+@Scripts.Render("~/Content/calendar.min.js")
+@Styles.Render("~/Content/semantic.css")
+@Styles.Render("~/Content/dropdown.min.css")
+@Styles.Render("~/Content/calendar.min.css")
+<div class="new deposit" style="margin-top:6%">
+    <form class="ui form" id="aza" onsubmit="return false;">
+
+        <input type="hidden" value="@ViewBag.Client" name="Id" />
+
+        <label>Кредит</label>
+        <div class="ui selection dropdown ">
+            <input type="hidden" name="Credit" placeholder="Кредит">
+            <div class="text"></div>
+            <i class="dropdown icon"></i>
+        </div>
+
+        <div class="required field">
+            <label>Размер Кредита</label>
+            <input name="Ammount" type="text" placeholder="Размер Кредита">
+        </div>
+
+        <div class="ui submit button">Submit</div>
+
+    </form>
+</div>
+
+
+<script>
+
+
+    $('.ui.selection.dropdown').dropdown({
+        apiSettings: {
+            url: '/Bank/getCrediits'
+        }
+
+    });
+
+
+    var $aza = $('#aza')
+    $('.ui.button').on('click', function () {
+        console.log($aza.form('get values'));
+        $mydata = $aza.form('get values');
+        $.ajax({
+                type: 'POST',
+                contentType: "application/json; charset=utf-8",
+                url: '/Bank/CreateNewCredit',
+                data: JSON.stringify($mydata),
+                success: function (data) {
+
+                    if (data.Success === true) {
+                        location.href = "/Bank/CreditsList/@ViewBag.client";
+                    }
+                    
+                },
+
+                async: true
+            });
+    })
+
+    $('.ui.checkbox').checkbox();
+</script>
+

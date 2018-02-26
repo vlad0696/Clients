@@ -21,6 +21,9 @@ namespace Clients.Models
         public DbSet<ClientsDeposit> ClientsDeposits { get; set; }
         public DbSet<InterestDeposit> InterestDeposits { get; set; }
         public DbSet<Currency> Currency { get; set; }
+        public DbSet<Credit> Credit { get; set; }
+        public DbSet<ClientsCredit> ClientsCredit { get; set; }
+        public DbSet<InterestCredit> InterestCredit { get; set; }
 
     }
 }

@@ -15,6 +15,151 @@ namespace Clients.Controllers
             return View();
         }
 
+
+        public ActionResult CreateNewCredit(int id)
+        {
+            ViewBag.Client = id;
+            return View();
+
+        }
+        [HttpPost]
+        public ActionResult CreateNewCredit(int id, int Credit, int Ammount)
+        {
+            Credit credit = context.Credit.Where(c => c.CreditID == Credit).FirstOrDefault();
+            ClientsCredit lastDeposit = context.ClientsCredit.ToList().LastOrDefault();
+            String num = lastDeposit.ClientCreditNumber.Substring(lastDeposit.ClientCreditNumber.Length - 9);
+            int depNum = int.Parse(num);
+            depNum++;
+            num = depNum.ToString();
+            while (num.Length != 9)
+            {
+                num = "0" + num;
+            }
+
+            ClientsCredit newCredit = new ClientsCredit();
+            newCredit.ClientID = id;
+            newCredit.Active = true;
+            newCredit.CreditID = Credit;
+            newCredit.DateStart = DateTime.Today;
+            newCredit.DateEnd = DateTime.Today.AddMonths(credit.Period);
+            newCredit.Period = credit.Period;
+            newCredit.Amount = Ammount;
+            newCredit.Diff = credit.Diff;
+            newCredit.ClientCreditNumber = credit.BalanceId.ToString() + num; ;
+            newCredit.Period = credit.Period;
+            context.ClientsCredit.Add(newCredit);
+
+            Currency currency = context.Currency.Where(c => c.CurrencyID == credit.CurrencyID).FirstOrDefault();
+            ClientsDeposit Fond = context.ClientsDeposits.Where(d => d.ClientID == 0).FirstOrDefault();
+            ClientsDeposit fond = Fond;
+            fond.Amount = Fond.Amount - newCredit.Amount * currency.Value;
+            context.Entry(Fond).CurrentValues.SetValues(fond);
+
+            InterestCredit interestCredit = new InterestCredit
+            {
+                ClientsCreditID = newCredit.ClientsCreditID,
+                InterestCreditNumber = "6660" + num,
+                Active = true,
+                Amount = newCredit.Amount * (credit.Percent * credit.Period / 12) / 100 + newCredit.Amount,
+                PayMonths = 0,
+                Period= credit.Period
+        };
+
+            if (newCredit.Diff)
+            {
+                interestCredit.MonthlyPayment = (interestCredit.Amount - newCredit.Amount) / (interestCredit.Period - 1);
+                interestCredit.LastMonthlyPayment = newCredit.Amount;
+            }
+            else
+            {
+                interestCredit.MonthlyPayment = interestCredit.Amount / interestCredit.Period;
+                interestCredit.LastMonthlyPayment = interestCredit.MonthlyPayment;
+
+            }
+            context.InterestCredit.Add(interestCredit);
+            context.SaveChanges();
+            return Json(new AjaxResponse(new AjaxResponse()));
+
+        }
+        #region credit view
+        [HttpGet]
+        public JsonResult getCrediits()
+        {
+
+            var credits = context.Credit.ToList();
+            List<DropdownValues> list = new List<DropdownValues>();
+            foreach (Models.Credit obj in credits)
+            {
+                String str;
+                if (obj.Diff)
+                {
+                    str = "Дифференцированный";
+                }
+                else
+                {
+                    str = "Аннуитетный";
+
+                }
+               list.Add(new DropdownValues(obj.CreditID, str + " кредит \"" + obj.DepositName + "\" под " + obj.Percent.ToString() + "% на " + obj.Period + " месяцев"));
+            }
+            DropDown dd = new DropDown(list);
+
+            return Json(dd, JsonRequestBehavior.AllowGet);
+        }
+     
+        public ActionResult CreditsList(int id)
+        {
+            Client client = context.Clients.Where(c => c.ClientID == id).FirstOrDefault();
+            ViewBag.client = client;
+            List<ClientsCredit> clientsCreditList = context.ClientsCredit.Where(c => c.ClientID == id).ToList();
+            List<CreditView> creditViewList = new List<CreditView>();
+            foreach (ClientsCredit cc in clientsCreditList)
+            {
+                creditViewList.Add(new CreditView
+                {
+                    ClientsCredittID = cc.ClientsCreditID,
+                    CreditID = cc.CreditID,
+                    CreditNumber = cc.ClientCreditNumber,
+                    DateStart = cc.DateStart,
+                    Amount = cc.Amount,
+                    Active = cc.Active
+
+                });
+
+            }
+            List<Credit> credits = context.Credit.ToList();
+            int i =0;
+            foreach (CreditView cc in creditViewList)
+            {
+                foreach (Credit c in credits)
+                {
+                    if (cc.CreditID == c.CreditID)
+                    {
+                        creditViewList[i].CreditName = c.DepositName;
+                        creditViewList[i].Percent = c.Percent;
+                    }
+                }
+                i++;
+            }
+            ViewBag.credits = creditViewList;
+            return View();
+        }
+        public class CreditView
+        {
+            public int CreditID { get; set; }
+            public int ClientsCredittID { get; set; }
+            public string CreditName { get; set; }
+            public string CreditNumber { get; set; }
+            public int Percent { get; set; }
+            public DateTime DateStart { get; set; }
+            public int Period { get; set; }
+            public double Amount { get; set; }
+            public bool Active { get; set; }
+
+        }
+        #endregion
+
+        #region Deposits
         public ActionResult DepositList(int Id)
         {
             Client client = context.Clients.Where(c => c.ClientID == Id).FirstOrDefault();
@@ -124,6 +269,7 @@ namespace Clients.Controllers
             ViewBag.client = id;
             return View();
         }
+        #endregion
 
         [HttpPost]
         public ActionResult CreateNew(NewDeposit newDeposit)
