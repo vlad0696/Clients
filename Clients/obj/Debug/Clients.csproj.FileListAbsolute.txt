@@ -257,3 +257,5 @@ C:\Users\Vlad\Desktop\piris\Clients\obj\Debug\Clients.csproj.CoreCompileInputs.c
 C:\Users\Vlad\Desktop\piris\Clients\obj\Debug\Clients.dll
 C:\Users\Vlad\Desktop\piris\Clients\obj\Debug\Clients.pdb
 C:\Users\Vlad\Desktop\piris\Clients\obj\Debug\Clients.Migrations._3lab_1Migration.resources
+C:\Users\Gramovich_V\Desktop\piris\Clients\obj\Debug\Clients.Migrations._3lab_1Migration.resources
+C:\Users\Gramovich_V\Desktop\piris\Clients\obj\Debug\Clients.Migrations._3lab_2Migration.resources

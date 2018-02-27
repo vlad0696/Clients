@@ -54,6 +54,7 @@ namespace Clients.Controllers
             ClientsDeposit fond = Fond;
             fond.Amount = Fond.Amount - newCredit.Amount * currency.Value;
             context.Entry(Fond).CurrentValues.SetValues(fond);
+            context.SaveChanges();
 
             InterestCredit interestCredit = new InterestCredit
             {
@@ -81,6 +82,77 @@ namespace Clients.Controllers
             return Json(new AjaxResponse(new AjaxResponse()));
 
         }
+
+        public ActionResult Credit(string creditNumber)
+        {
+            ClientsCredit clientsCredit = context.ClientsCredit.Where(c => c.ClientCreditNumber.Equals(creditNumber)).FirstOrDefault();
+            InterestCredit interestCredit = context.InterestCredit.Where(c => c.ClientsCreditID == clientsCredit.ClientsCreditID).FirstOrDefault();
+            Client client = context.Clients.Where(c => c.ClientID == clientsCredit.ClientID).FirstOrDefault();
+            ViewBag.client = client;
+            ViewBag.credit = clientsCredit;
+            DateTime date = clientsCredit.DateStart;
+            List<MonthlyPay> monthlyPay = new List<MonthlyPay>();
+            for(int i = 0; i < interestCredit.Period - 1;i++)
+            {
+                date.AddMonths(i);
+                if (interestCredit.PayMonths - 1 < i)
+                {
+                    monthlyPay.Add(new MonthlyPay() { Date = date, Paid = false, Month=i+1, Score=interestCredit.MonthlyPayment});
+                }
+                else
+                {
+                    monthlyPay.Add(new MonthlyPay() { Date = date, Paid = true, Month = i + 1, Score = interestCredit.MonthlyPayment });
+                }
+            }
+            if (interestCredit.PayMonths == interestCredit.Period)
+            {
+                monthlyPay.Add(new MonthlyPay() { Date = date, Paid = true, Month =interestCredit.Period, Score= interestCredit.LastMonthlyPayment });
+            }
+            else
+            {
+                monthlyPay.Add(new MonthlyPay() { Date = date, Paid = false, Month= interestCredit.Period, Score = interestCredit.LastMonthlyPayment });
+
+            }
+            ViewBag.PayedMonth = interestCredit.PayMonths;
+            ViewBag.monthlyPay = monthlyPay;
+            return View();
+        }
+       
+            
+        public ActionResult Paid(string Number)
+        {
+
+            ClientsCredit clientsCredit = context.ClientsCredit.Where(c => c.ClientCreditNumber.Equals(Number)).FirstOrDefault();
+            InterestCredit interestCredit = context.InterestCredit.Where(c => c.ClientsCreditID == clientsCredit.ClientsCreditID).FirstOrDefault();
+            InterestCredit interest = interestCredit;
+            interest.PayMonths++;
+
+            ClientsDeposit Fond = context.ClientsDeposits.Where(d => d.ClientID == 0).FirstOrDefault();
+            ClientsDeposit fond = Fond;
+            fond.Amount = Fond.Amount + interestCredit.MonthlyPayment;
+
+            if (interest.PayMonths == interest.Period)
+            {
+                ClientsCredit credit = clientsCredit;
+                credit.Active = false;
+                context.Entry(credit).CurrentValues.SetValues(credit);
+            }
+
+            context.Entry(Fond).CurrentValues.SetValues(fond);
+            context.Entry(interestCredit).CurrentValues.SetValues(interest);
+            context.SaveChanges();
+            return RedirectToAction("Credit", new { creditNumber =Number} );
+        }
+
+        public class MonthlyPay
+        {
+            public DateTime Date { get; set; }
+            public Boolean Paid { get; set; }
+            public int Month { get; set; }
+            public double Score { get; set; }
+
+        }
+
         #region credit view
         [HttpGet]
         public JsonResult getCrediits()
@@ -122,7 +194,8 @@ namespace Clients.Controllers
                     CreditNumber = cc.ClientCreditNumber,
                     DateStart = cc.DateStart,
                     Amount = cc.Amount,
-                    Active = cc.Active
+                    Active = cc.Active,
+                    Period=cc.Period
 
                 });
 
@@ -269,7 +342,7 @@ namespace Clients.Controllers
             ViewBag.client = id;
             return View();
         }
-        #endregion
+
 
         [HttpPost]
         public ActionResult CreateNew(NewDeposit newDeposit)
@@ -323,6 +396,24 @@ namespace Clients.Controllers
             public int Ammount { get; set; }
         }
 
+        public ActionResult Revocable(int id)
+        {
+            InterestDeposit interestDeposit = context.InterestDeposits.Where(i => i.ClientsDepositID == id).FirstOrDefault();
+            InterestDeposit tempInterest = interestDeposit;
+            tempInterest.Active = false;
+            context.Entry(interestDeposit).CurrentValues.SetValues(tempInterest);
+            ClientsDeposit clientDeposit = context.ClientsDeposits.Where(c => c.ClientsDepositID == id).FirstOrDefault();
+            ClientsDeposit tempDeposit = clientDeposit;
+            tempDeposit.Active = false;
+            context.Entry(clientDeposit).CurrentValues.SetValues(tempDeposit);
+            ClientsDeposit Fond = context.ClientsDeposits.Where(c => c.ClientID == 0).FirstOrDefault();
+            ClientsDeposit tempFond = Fond;
+            tempFond.Amount -= clientDeposit.Amount;
+            context.Entry(Fond).CurrentValues.SetValues(tempFond);
+            context.SaveChanges();
+            return RedirectToAction("/DepositList/" + clientDeposit.ClientID.ToString());
+        }
+        #endregion
         public ActionResult EndDay()
         {
             List<InterestDeposit> listInterestDepostis = context.InterestDeposits.ToList();
@@ -346,22 +437,6 @@ namespace Clients.Controllers
             context.SaveChanges();
             return Json(new AjaxResponse(new  AjaxResponse()));
         }
-        public ActionResult Revocable(int id)
-        {
-            InterestDeposit interestDeposit = context.InterestDeposits.Where(i=>i.ClientsDepositID==id).FirstOrDefault();
-            InterestDeposit tempInterest = interestDeposit;
-            tempInterest.Active = false;
-            context.Entry(interestDeposit).CurrentValues.SetValues(tempInterest);
-            ClientsDeposit clientDeposit = context.ClientsDeposits.Where(c => c.ClientsDepositID ==id).FirstOrDefault();
-            ClientsDeposit tempDeposit = clientDeposit;
-            tempDeposit.Active = false;
-            context.Entry(clientDeposit).CurrentValues.SetValues(tempDeposit);
-            ClientsDeposit Fond = context.ClientsDeposits.Where(c => c.ClientID == 0).FirstOrDefault();
-            ClientsDeposit tempFond = Fond;
-            tempFond.Amount -= clientDeposit.Amount;
-            context.Entry(Fond).CurrentValues.SetValues(tempFond);
-            context.SaveChanges();
-            return RedirectToAction("/DepositList/"+clientDeposit.ClientID.ToString());
-        }
+
     }
 }

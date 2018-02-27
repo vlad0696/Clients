@@ -209,6 +209,10 @@
     <Compile Include="Migrations\201802261950130_3lab_1Migration.Designer.cs">
       <DependentUpon>201802261950130_3lab_1Migration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201802270642275_3lab_2Migration.cs" />
+    <Compile Include="Migrations\201802270642275_3lab_2Migration.Designer.cs">
+      <DependentUpon>201802270642275_3lab_2Migration.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Client.cs" />
     <Compile Include="Models\ClientsCredit.cs" />
@@ -439,6 +443,7 @@
     <Content Include="Views\Bank\CreateNew.cshtml" />
     <Content Include="Views\Bank\CreditsList.cshtml" />
     <Content Include="Views\Bank\CreateNewCredit.cshtml" />
+    <Content Include="Views\Bank\Credit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -497,6 +502,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201802261950130_3lab_1Migration.resx">
       <DependentUpon>201802261950130_3lab_1Migration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201802270642275_3lab_2Migration.resx">
+      <DependentUpon>201802270642275_3lab_2Migration.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

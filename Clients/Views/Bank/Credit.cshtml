@@ -1,0 +1,70 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+@Scripts.Render("~/Scripts/jquery-3.3.1.js")
+@Scripts.Render("~/Scripts/semantic.min.js")
+@Scripts.Render("~/Content/dropdown.min.js")
+@Scripts.Render("~/Content/calendar.min.js")
+@Styles.Render("~/Content/semantic.css")
+@Styles.Render("~/Content/dropdown.min.css")
+@Styles.Render("~/Content/calendar.min.css")
+<div class="main form" style="margin-top:6%">
+    <h3>Список кредитов</h3>
+    <table class="ui celled table">
+        <tr>
+            <td><p>ФИО</p></td>
+            <td><p>Номер паспорта</p></td>
+        </tr>
+        <tr>
+            <td><p>@ViewBag.client.SurName @ViewBag.client.Name @ViewBag.client.SecondName</p></td>
+            <td><p>@ViewBag.client.Series @ViewBag.client.Number</p></td>
+        </tr>
+    </table>
+  
+    <table class="ui celled table">
+        <tr>
+            <td><p>Номер Кредита</p></td>
+            <td><p>Сумма кредита</p></td>
+        </tr>
+        <tr>
+            <td><p>@ViewBag.credit.ClientCreditNumber</p></td>
+            <td><p>@ViewBag.credit.Amount</p></td>
+        </tr>
+    </table>
+
+    <h3>Оплата Кредита</h3>
+    <table class="ui celled table">
+            <tr>
+                <td><p>Дата</p></td>
+                <td><p>Сумма</p></td>
+                <td><p>Оплата</p></td>
+
+            </tr>
+            @foreach (var c in ViewBag.monthlyPay)
+            {
+                <tr>
+                    <td><p>@c.Date</p></td>
+                    <td><p>@c.Score</p></td>
+                    
+                    @if (@c.Paid)
+                    {
+                        <td><p>Оплачено</p></td>
+                    }
+                    else
+                    {
+                        if (c.Month-1 == ViewBag.PayedMonth)
+                        {
+                            <td><a href="/Bank/Paid?Number=@ViewBag.credit.ClientCreditNumber">Оплатить</a></td>
+
+                        }
+                        else
+                        {
+                            <td></td>
+                        }
+                    }
+                </tr>
+            }
+        </table>
+</div>
+
+
